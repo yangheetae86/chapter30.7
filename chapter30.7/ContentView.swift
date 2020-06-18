@@ -9,8 +9,51 @@
 import SwiftUI
 
 struct ContentView: View {
+    
+    @State private var isButtonVisible = true
+    
     var body: some View {
-        Text("Hello, World!")
+        VStack {
+            Toggle(isOn: $isButtonVisible.animation(
+                .linear(duration: 2))) {
+                    Text("Show/Hide Button")
+            }
+            .padding()
+            
+            if isButtonVisible {
+                Button(action: {
+                    
+                })
+                {
+//                       Text(isButtonVisible ? "Text" : "")
+//                    if isButtonVisible {
+//                        Text("Text")
+//                    } else {
+//                        Text("Text").hidden()
+//                    }
+                    Text(isVsible(isButton: isButtonVisible))
+                    }//.hidden()
+                .font(.largeTitle)
+//                .transition(.opacity)
+                    .transition(AnyTransition.opacity.combined(with: .move(edge: .top)).combined(with: .move(edge: .leading)))
+//                    .transition(.fadeAndMove)
+//                    .transition(.asymmetric(insertion: .scale, removal: .slide))
+            }
+        }
+    }
+}
+
+func isVsible(isButton: Bool)->String {
+    if isButton {
+        return "Text"
+    } else {
+        return ""
+    }
+}
+
+extension AnyTransition {
+    static var fadeAndMove: AnyTransition {
+        AnyTransition.opacity.combined(with: .move(edge: .top))
     }
 }
 
